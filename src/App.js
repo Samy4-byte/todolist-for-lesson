@@ -7,12 +7,17 @@ function App() {
 
   const getOverdueTodos = () => {
     const today = new Date()
-    return todos.filter((todo) => new Date(todo.deadline) < today)
+    return todos.filter((todo) => !todo.isDone && new Date(todo.deadline) < today)
   }
 
   const getActualTodos = () => {
     const today = new Date()
-    return todos.filter((todo) => new Date(todo.deadline) >= today)
+    return todos.filter((todo) => !todo.isDone && new Date(todo.deadline) >= today)
+  }
+
+  const getComplitedTodos = () => {
+    const today = new Date()
+    return todos.filter((todo) => todo.isDone)
   }
 
   const toggleTodo = (id) => {
@@ -37,6 +42,11 @@ function App() {
       <TodoList
         title="Actual"
         items={getActualTodos()}
+        onToggleTodo={toggleTodo}
+      />
+       <TodoList
+        title="Complited"
+        items={getComplitedTodos()}
         onToggleTodo={toggleTodo}
       />
     </div>
